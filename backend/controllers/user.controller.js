@@ -3,20 +3,22 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const genSalt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, genSalt);
-    const newUser = new User({
-      username,
-      password: hashedPassword,
-    });
-    await newUser.save();
-    res.status(201).json(newUser);
-  } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+    const {username, password} = req.body
+    try {
+        const userExists = await findOne({username})
+        if (userExists) return res.status(401).json("User already exists!")
+        const genSalt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, genSalt)
+        const newUser = new User({
+            username,
+            password: hashedPassword
+        })
+        await newUser.save()
+        res.status(201).json(newUser)
+    } catch(error) {
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
 
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;

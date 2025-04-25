@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
       enum: [1, 2, 3], // 1 = admin, 2 = moderator, 3 = user
       default: 3,
       required: true,
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
   },
 });
