@@ -10,11 +10,15 @@ const Register = () => {
     const mutation = useMutation({
         mutationFn: registerUser,
         onSuccess: () => {
-            toast.success("Register Successfu")
+            toast.success("Register Successfully")
         }
     })
     return (
-        <h1>Register User</h1>
+        <div>
+            <form>
+
+            </form>
+        </div>
     )
 }
 
