@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/auth/signup"
+    baseURL: "http://localhost:5000/api/auth"
 })
 
 export const registerUser = async (userData) => {
@@ -9,6 +9,6 @@ export const registerUser = async (userData) => {
         const response = await api.post("/signup", userData)
         return response.data
     } catch(error) {
-        throw new Error("Failed to register user")
+        throw new Error(error.response?.data?.message || "Failed to register user")
     }
 }
