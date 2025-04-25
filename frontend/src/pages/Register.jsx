@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useMutation} from '@tanstack/react-query'
-import {registerUser} from ''
+// import {registerUser} from ''
 import {toast} from 'react-toastify'
 const Register = () => {
     const [formData, setFormData] = useState({
