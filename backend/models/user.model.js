@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -15,12 +16,13 @@ const userSchema = new mongoose.Schema({
       enum: [1, 2, 3], // 1 = admin, 2 = moderator, 3 = user
       default: 3,
       required: true,
-    username: {
+      username: {
         type: String,
         required: true,
         unique: true
-    },
-  },
-});
+    }
+    }
+}})
+
 
 export default mongoose.model("User", userSchema);
