@@ -23,10 +23,7 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
-  publicKey: {
-    type: String,
-    default: null
-  }
+  publicKey: String
 })
 
 

@@ -1,15 +1,11 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-  const headerToken = req.headers.auth || req.headers.Auth;
-  // console.log(headerToken)
-  if (!headerToken) return res.status(404).json({ message: "token not found" });
-  const token = headerToken.split(" ")[1];
-  console.log(token)
+  const token = req.headers.authorization.split(" ")[1]
+  if (!token) return res.status(404).json("Token not found!")
   try {
-    const decode = jwt.verify(token, "gulfam");
-    req.user = decode;
-    console.log(req.user);
+    const decoded = jwt.verify(token, "gulfam");
+    req.user = decoded;
     next();
   } catch (err) {
     res.status(500).json({ message: "invalid token" });

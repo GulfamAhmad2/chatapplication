@@ -14,12 +14,12 @@ const Login = () => {
     const mutation = useMutation({
         mutationFn: loginUser,
         onSuccess: () => {
-          console.log("Login done")
+            console.log("Loging attempting")
             toast.success("Login Successfully")
-            navigate("/")
+            navigate("/", {replace: true})
         },
         onError: (error) => {
-          console.log(error)
+            console.log("Error: " + error)
             setError(error.message)
         }
     })

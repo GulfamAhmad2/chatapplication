@@ -20,18 +20,17 @@ export const loginUser = async (userData) => {
         const token = response.data.token
         localStorage.setItem("token", token)
         await sodium.ready
-        console.log("Sodium Ready")
         const keyPair = sodium.crypto_box_keypair()
         const publicKey = sodium.to_base64(keyPair.publicKey)
         const privateKey = sodium.to_base64(keyPair.privateKey)
-
         await api.post("/store-public-key",
-        {publicKey},
-        {headers: {auth: `${token}`}}
+            {publicKey},
+            {headers: {Authorization: `Bearer ${token}`}}
         )
         localStorage.setItem("privateKey", privateKey)
         return response.data
     } catch(error) {
+        console.log("Error: " + error)
         throw new Error(error.response?.data?.message || "Failed to login user")
     }
 } 

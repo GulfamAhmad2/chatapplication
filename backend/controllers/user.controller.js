@@ -32,7 +32,7 @@ export const loginUser = async (req, res) => {
         });
         console.log(isUser._id)
         console.log("Login Done")
-        res.status(200).json({ message: "Login successful", token });
+        res.status(200).json({ isUser, token });
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "Internal Server Error" });
@@ -47,6 +47,7 @@ export const storePublicKey = async (req, res) => {
             return res.status(400).json({ message: 'Public key is required' })
         }
         await User.findByIdAndUpdate(userId, { publicKey })
+        res.status(201).json({message: "PublicKey has been updated."})
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({ message: "Internal Server Error" });
