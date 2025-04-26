@@ -20,9 +20,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+      }
     }
-    }
-}})
+  },
+  publicKey: String
+})
 
 
 export default mongoose.model("User", userSchema);
