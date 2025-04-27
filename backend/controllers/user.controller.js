@@ -6,7 +6,7 @@ export const registerUser = async (req, res) => {
     const { username, password } = req.body
     try {
         const userExists = await User.findOne({ username })
-        if (userExists) return res.status(401).json({ message: "User already exists!" })
+        if (userExists) return res.status(401).json({ message: "Username already exists!" })
         const genSalt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, genSalt)
         const newUser = new User({
@@ -24,11 +24,17 @@ export const loginUser = async (req, res) => {
     const { username, password } = req.body;
     try {
         const isUser = await User.findOne({ username });
-        if (!isUser) return res.status(404).json({ message: "User not found!" });
+        if (!isUser) return res.status(404).json({ message: "Username not found!" });
         const isMatch = await bcrypt.compare(password, isUser.password);
-        if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
-        const token = jwt.sign({ id: isUser._id, role: isUser.role.role }, "gulfam", {
+        if (!isMatch) return res.status(401).json({ message: "Invalid password" });
+        const token = jwt.sign({ id: isUser?._id, role: isUser?.role?.role }, "gulfam", {
             expiresIn: "7d",
+        });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false, 
+            sameSite: "Lax", 
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
         });
         console.log(isUser._id)
         console.log("Login Done")

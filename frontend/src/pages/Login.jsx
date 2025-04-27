@@ -1,84 +1,76 @@
-import React, {useState} from 'react'
-import {useMutation} from '@tanstack/react-query'
-import {loginUser} from '../services/auth.js'
-import {toast} from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../services/auth.js";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthComponent } from "./Register.jsx";
+import Button from "../components/Button.jsx";
+import { useForm } from "react-hook-form";
+import Input from "../components/Input.jsx";
 
 const Login = () => {
-    const navigate = useNavigate()
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    })
-    const [error, setError] = useState("")
-    const mutation = useMutation({
-        mutationFn: loginUser,
-        onSuccess: () => {
-            console.log("Loging attempting")
-            toast.success("Login Successfully")
-            navigate("/", {replace: true})
-        },
-        onError: (error) => {
-            console.log("Error: " + error)
-            setError(error.message)
-        }
-    })
-    const handleChange= (e) => {
-        const {value, name} = e.target
-        setFormData({...formData, [name]: value})
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        mutation.mutate(formData)
-        setFormData({
-            username: '',
-            password: ''
-        })
-    }
-    return (
-        <div className="flex items-center justify-center bg-gray-800 h-screen">
-            <div className="bg-gray-700 rounded-2xl w-full max-w-md border border-gray-300 p-6">
-                <div className="mb-4">
-                    <h1 className="text-xl font-bold text-white text-center">Sign In Now</h1>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <h1 className="text-sm font-bold text-red-400 text-center">{error}</h1>
-                <div className="mb-4">
-                    <label htmlFor="username" className="block mb-2 text-gray-400">
-                        Username
-                    </label>
-                    <input 
-                        id="username"
-                        name="username"
-                        type="text"
-                        value={formData.username}
-                        onChange={handleChange}
-                        placeholder="Your name"
-                        className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:ring-2 focus:ring-emerald-300 focus:outline-none"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="password" className="block text-gray-400 mb-2">
-                        Password
-                    </label>
-                    <input 
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Enter Password"
-                        className="border border-gray-600 rounded-md w-full px-3 py-2 text-white bg-gray-700 focus:ring-2 focus:outline-none focus:ring-emerald-300"
-                    />
-                </div>
-                <div className="flex justify-between items-center">
-                    <button className="px-4 py-2 bg-orange-600 hover:bg-orange-500 rounded-md text-white" type="reset">Reset</button>
-                    <button className="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-md text-white" type="submit" disabled={mutation.isPending ? true : false }>Sign In</button>
-                </div>
-            </form>
-            </div>
-        </div>
-    )
-}
+  const [error, setError] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+      console.log("Loging attempting");
+      toast.success("Login Successfully");
+      navigate("/", { replace: true });
+    },
+    onError: (error) => {
+      console.log("Error: " + error);
+      setError(error.message);
+    },
+  });
 
-export default Login
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
+  return (
+    <AuthComponent>
+      <h1 className="mb-6 text-center text-2xl font-bold text-[var(--primary-text-color)]">
+        Sign In
+      </h1>
+      {error && (
+            <p className=" text-red-500 text-center text-sm my-2">{error}</p>
+          )}
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          <Input
+            type="text"
+            register={register}
+            errors={errors}
+            name="username"
+            placeholder="Username"
+            required={true}
+          />
+          <Input
+            type="password"
+            register={register}
+            errors={errors}
+            name="password"
+            placeholder="Password"
+            required={true}
+
+          />
+        </div>
+        <div>
+          <Button
+            className="py-2 bg-[var(--accent-color)] hover:bg-[var(--accent-hover)] text-white"
+            text={mutation?.isPending ? "Loading..." : "Sign In"}
+            disabled={mutation?.isPending}
+          />
+          <Link className="text-[14px] text-[var(--primary-text-color)] underline" to="/signup">Don't have account</Link>
+        </div>
+      </form>
+    </AuthComponent>
+  );
+};
+
+export default Login;

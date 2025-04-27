@@ -16,7 +16,9 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (userData) => {
     try {
-        const response = await api.post("/login", userData)
+        const response = await api.post("/login", userData, {
+            withCredentials: true,
+        })
         const token = response.data.token
         localStorage.setItem("token", token)
         await sodium.ready

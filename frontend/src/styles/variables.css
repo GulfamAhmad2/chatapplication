@@ -1,0 +1,25 @@
+:root {
+  /* Light Mode */
+  --bg-color: #FFFFFF;
+  --primary-text-color: #000000;
+  --secondary-text-color: #6E6E6E;
+  --accent-color: #0088CC;
+  --accent-hover: #007AB8;
+  --input-bg: #F5F5F5;
+  --border-color: #E0E0E0;
+  --user-bubble-bg: #DCF8C6;
+  --friend-bubble-bg: #FFFFFF;
+}
+
+.dark {
+  /* Dark Mode */
+  --bg-color: #17212B;
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #828282;
+  --accent-color: #0088CC;
+  --accent-hover: #007AB8;
+  --input-bg: #1F2937;
+  --border-color: #2C3A47;
+  --user-bubble-bg: #2A3942;
+  --friend-bubble-bg: #1E2B38;
+}
