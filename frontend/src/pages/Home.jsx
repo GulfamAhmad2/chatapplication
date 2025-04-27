@@ -69,7 +69,7 @@ function SideBar() {
   return (
     <div
       className={` ${
-        isOpen ? "w-[60px]" : "w-[200px]"
+        !isOpen ? "w-[60px]" : "w-[200px]"
       } bg-[var(--border-color)]  min-h-screen flex flex-col justify-between transition-all duration-300`}
     >
       <div className="border-b-1 border-[var(--secondary-text-color)]/50">
@@ -104,7 +104,7 @@ function IconCard({ children, title, isOpen }) {
   return (
     <Link className="flex items-center gap-4 p-4 hover:bg-[var(--bg-color)]/50 cursor-pointer ">
       {children}
-      {!isOpen && (
+      {isOpen && (
         <span className="text-[14px] font-medium text-[var(--primary-text-color)]  ">
           {title}
         </span>
