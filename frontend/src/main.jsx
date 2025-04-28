@@ -10,6 +10,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ProtectRoute from "./components/ProtectRoute.jsx";
 import './styles/variables.css'
+import Profile from "./pages/Profile.jsx";
 
 
 const queryClient = new QueryClient()
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+      {
+        path: '/profile',
+        element: <Profile />
+      }
     ],
   },
   {
