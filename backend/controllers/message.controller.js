@@ -20,12 +20,13 @@ export const sendMessage = async (req, res) => {
     }
 }
 
-export const getMessage = async (req, res) => {
+// pls don't touch this file for now 
+// export const getMessage = async (req, res) => {
 
-    try {
-        const 
-    } catch(error) {
-        console.log("Error: " + error)
-        return res.status(500).json({message: "Internal Server Error"})
-    }
-}
+//     try {
+//         const 
+//     } catch(error) {
+//         console.log("Error: " + error)
+//         return res.status(500).json({message: "Internal Server Error"})
+//     }
+// }
