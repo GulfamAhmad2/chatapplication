@@ -69,9 +69,8 @@ const Register = () => {
         <div>
         <Button
           className="py-2 bg-[var(--accent-color)] hover:bg-[var(--accent-hover)] text-white"
-          text={mutation?.isPending ? "Loading..." : "Sign Up"}
           disabled={mutation?.isPending}
-        />
+        >{mutation?.isPending ? "Loading..." : "Sign Up"}</Button>
         <Link className="text-[14px] text-[var(--primary-text-color)] underline" to='/login' >I have account</Link>
         </div>
         

@@ -63,9 +63,8 @@ const Login = () => {
         <div>
           <Button
             className="py-2 bg-[var(--accent-color)] hover:bg-[var(--accent-hover)] text-white"
-            text={mutation?.isPending ? "Loading..." : "Sign In"}
             disabled={mutation?.isPending}
-          />
+          >{mutation?.isPending ? "Loading..." : "Sign In"}</Button>
           <Link className="text-[14px] text-[var(--primary-text-color)] underline" to="/signup">Don't have account</Link>
         </div>
       </form>
