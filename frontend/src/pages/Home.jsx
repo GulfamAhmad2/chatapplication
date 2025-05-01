@@ -25,16 +25,18 @@ import {
 
 import { useToggle } from "../hooks/useToggle";
 import SideBar from "../components/SideBar";
+import ChatSideBar from "../components/ChatSideBar";
 
 const Home = () => {
   return (
-    <main className=" bg-[var(--bg-color)] min-h-screen">
-      
+    <main className="flex  bg-[var(--bg-color)] min-h-screen">
       <div>
         <SideBar />
       </div>
-      <div>
-        <aside></aside>
+      <div className="flex ">
+        <aside>
+          <ChatSideBar/>
+        </aside>
         <section>
           <header></header>
           <div></div>
@@ -43,8 +45,5 @@ const Home = () => {
     </main>
   );
 };
-
-
-
 
 export default Home;

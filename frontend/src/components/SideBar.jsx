@@ -12,7 +12,7 @@ export default function SideBar() {
         } bg-[var(--border-color)]  min-h-screen flex flex-col justify-between transition-all duration-300`}
       >
         <div className="border-b-1 border-[var(--secondary-text-color)]/50">
-          <button className="p-3 cursor-pointer mb-2" onClick={() => toggle()}>
+          <button className="pt-4 p-3 cursor-pointer mb-2" onClick={() => toggle()}>
             <Menu color="#0088CC" />
           </button>
           <div className="flex flex-col gap-2">
