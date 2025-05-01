@@ -24,6 +24,8 @@ export const loginUser = async (userData) => {
         const keyPair = sodium.crypto_box_keypair()
         const publicKey = sodium.to_base64(keyPair.publicKey)
         const privateKey = sodium.to_base64(keyPair.privateKey)
+        // yaha pr jo tum public key server save kr rhe the wo kr do baki sab sahi 
+        // aur localstorage ki jagah pr indexdb use kro private kye aur chat ke liye
         // await api.post("/store-public-key",
         //     {publicKey},
         // )

@@ -7,7 +7,8 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 
-
+// agar tumhara concept clear hogya hai socket main
+//  to ye jo socket setup mvc ka use krke phir set up kr do
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
