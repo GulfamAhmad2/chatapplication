@@ -5,7 +5,10 @@ export const sendMessage = async (req, res) => {
     const {receiverId} = req.params
     const {encrypted_message} = req.body
 
+    // note 
+    // websockte ko use 
     // this is just a basic sendMessage logic we will make it more advance
+    
     try {
         const newMessage = new Message({
             sender: senderId,
