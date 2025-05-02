@@ -6,6 +6,7 @@ import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import messageRoutes from './routes/message.route.js'
 
 // agar tumhara concept clear hogya hai socket main
 //  to ye jo socket setup mvc ka use krke phir set up kr do
@@ -27,6 +28,7 @@ app.use(cors({
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use('/api/message', messageRoutes)
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);
