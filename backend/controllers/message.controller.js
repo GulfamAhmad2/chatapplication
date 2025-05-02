@@ -4,6 +4,9 @@ export const sendMessage = async (req, res) => {
     const senderId = req.user.id
     const {encrypted_message, sessionId, receiverId} = req.body
 
+    // note 
+    // websockte ko use 
+    // this is just a basic sendMessage logic we will make it more advance
     try {
         if (!senderId || !encrypted_message || !sessionId || !receiverId) {
             return res.status(400).json({message: "Missing required fields"})

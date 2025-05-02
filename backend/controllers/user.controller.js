@@ -27,11 +27,11 @@ export const loginUser = async (req, res) => {
         if (!isUser) return res.status(404).json({ message: "Username not found!" });
         const isMatch = await bcrypt.compare(password, isUser.password);
         if (!isMatch) return res.status(401).json({ message: "Invalid password" });
-        const token = jwt.sign({ id: isUser?._id, role: isUser?.role?.role }, "gulfam", {
+        const token = jwt.sign({ id: isUser?._id, role: isUser?.role }, "gulfam", {
             expiresIn: "7d",
         });
         res.cookie("token", token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: false, 
             sameSite: "Lax", 
             maxAge: 7 * 24 * 60 * 60 * 1000, 
