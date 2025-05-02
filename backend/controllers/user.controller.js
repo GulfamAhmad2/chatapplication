@@ -72,3 +72,17 @@ export const userProfile = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+export const userFriends = async (req, res) => {
+    const userId = req.user.id
+    try {
+        const user = await User.findById({userId}).select("+friends")
+        if (!user.friends) {
+            return res.status(404).json({message: "No friends found!"})
+        }
+        res.status(200).json({friends: user.friends})
+    } catch(error) {
+        console.log("Error: " + error)
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}

@@ -16,14 +16,11 @@ const userSchema = new mongoose.Schema({
     default: 3,
     required: true,
   },
-  // ye model changes kiya hu aur future main add honge 
-  // but tum isme public key ka value save kr do server main
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   friendRequestsSent: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   friendRequestsReceived: [
     { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   ],
-
   publicKey: { type: String },
 });
 

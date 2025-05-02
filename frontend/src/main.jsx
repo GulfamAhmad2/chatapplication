@@ -11,6 +11,7 @@ import Register from "./pages/Register.jsx";
 import ProtectRoute from "./components/ProtectRoute.jsx";
 import './styles/variables.css'
 import Profile from "./pages/Profile.jsx";
+import PrivateChat from "./pages/PrivateChat.jsx";
 
 
 const queryClient = new QueryClient()
@@ -39,7 +40,8 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />
-      }
+      },
+      {path: '/chat/:chatId', element: <PrivateChat />}
     ],
   },
   {

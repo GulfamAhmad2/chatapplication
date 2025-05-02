@@ -1,9 +1,11 @@
 import {Outlet} from "react-router-dom"
 // import './App.css'
+import SideBar from "./components/SideBar";
+import ChatSideBar from "./components/ChatSideBar";
+
 function App() {
   return (
     <>
-    {/* Sidebar yaha lado aur home me bus chat ka logic rakho is outlet ko main outlet banate hai */}
     <Outlet/>
     </>
   )

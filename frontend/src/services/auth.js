@@ -26,9 +26,9 @@ export const loginUser = async (userData) => {
         const privateKey = sodium.to_base64(keyPair.privateKey)
         // yaha pr jo tum public key server save kr rhe the wo kr do baki sab sahi 
         // aur localstorage ki jagah pr indexdb use kro private kye aur chat ke liye
-        // await api.post("/store-public-key",
-        //     {publicKey},
-        // )
+        await api.post("/store-public-key",
+            {publicKey},
+        )
         localStorage.setItem("privateKey", privateKey)
         return response.data
     } catch(error) {
