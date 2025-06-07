@@ -7,9 +7,13 @@ import { AuthComponent } from "./Register.jsx";
 import Button from "../components/Button.jsx";
 import { useForm } from "react-hook-form";
 import Input from "../components/Input.jsx";
+import { useToggle } from "../hooks/useToggle.jsx";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
+  const [isOpen, setIsOpen] = useToggle();
   const [error, setError] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -18,7 +22,8 @@ const Login = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      localStorage.setItem("users", JSON.stringify(res?.isUser))
       console.log("Loging attempting");
       toast.success("Login Successfully");
       navigate("/", { replace: true });
@@ -38,8 +43,8 @@ const Login = () => {
         Sign In
       </h1>
       {error && (
-            <p className=" text-red-500 text-center text-sm my-2">{error}</p>
-          )}
+        <p className=" text-red-500 text-center text-sm my-2">{error}</p>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div className="flex flex-col gap-8">
           <Input
@@ -50,22 +55,41 @@ const Login = () => {
             placeholder="Username"
             required={true}
           />
-          <Input
-            type="password"
-            register={register}
-            errors={errors}
-            name="password"
-            placeholder="Password"
-            required={true}
-
-          />
+          <div className="relative">
+            <Input
+              type={isOpen ? "text" : "password"}
+              register={register}
+              errors={errors}
+              name="password"
+              placeholder="Password"
+              required={true}
+            />
+            <div className="absolute top-[50%] right-2  translate-y-[-50%]">
+              {!isOpen ? (
+                <button type="button" className="cursor-pointer flex items-center justify-center" onClick={() => setIsOpen()}>
+                  <EyeOff color='green'/>
+                </button >
+              ) : (
+                <button type="button" className="cursor-pointer flex items-center justify-center " onClick={() => setIsOpen()}>
+                  <Eye color='red' />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         <div>
           <Button
             className="py-2 bg-[var(--accent-color)] hover:bg-[var(--accent-hover)] text-white"
             disabled={mutation?.isPending}
-          >{mutation?.isPending ? "Loading..." : "Sign In"}</Button>
-          <Link className="text-[14px] text-[var(--primary-text-color)] underline" to="/signup">Don't have account</Link>
+          >
+            {mutation?.isPending ? "Loading..." : "Sign In"}
+          </Button>
+          <Link
+            className="text-[14px] text-[var(--primary-text-color)] underline"
+            to="/signup"
+          >
+            Don't have account
+          </Link>
         </div>
       </form>
     </AuthComponent>

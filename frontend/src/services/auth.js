@@ -1,13 +1,14 @@
 import axios from 'axios'
 import sodium from 'libsodium-wrappers'
 
-const api = axios.create({
-    baseURL: "http://localhost:5000/api/auth"
+export const api = axios.create({
+    baseURL: "http://localhost:5000/api/",
+    timeout:5000,
 })
 
 export const registerUser = async (userData) => {
     try {
-        const response = await api.post("/signup", userData)
+        const response = await api.post("auth/signup", userData)
         return response.data
     } catch(error) {
         throw new Error(error.response?.data?.message || "Failed to register user")
@@ -16,7 +17,7 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (userData) => {
     try {
-        const response = await api.post("/login", userData, {
+        const response = await api.post("auth/login", userData, {
             withCredentials: true,
         })
         
@@ -26,9 +27,9 @@ export const loginUser = async (userData) => {
         const privateKey = sodium.to_base64(keyPair.privateKey)
         // yaha pr jo tum public key server save kr rhe the wo kr do baki sab sahi 
         // aur localstorage ki jagah pr indexdb use kro private kye aur chat ke liye
-        await api.post("/store-public-key",
-            {publicKey},
-        )
+        // await api.post("/store-public-key",
+        //     {publicKey},
+        // )
         localStorage.setItem("privateKey", privateKey)
         return response.data
     } catch(error) {
