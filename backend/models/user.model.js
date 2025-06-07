@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bgColor:{
+    type:String
+  },
   role: {
     type: Number,
     enum: [1, 2, 3], // 1 = admin, 2 = moderator, 3 = user
@@ -20,6 +23,12 @@ const userSchema = new mongoose.Schema({
   friendRequestsSent: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   friendRequestsReceived: [
     { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  ],
+  blockedUsers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   ],
   publicKey: { type: String },
 });

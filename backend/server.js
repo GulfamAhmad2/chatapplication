@@ -7,6 +7,9 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import messageRoutes from './routes/message.route.js'
+import friendRoutes from './routes/friend.route.js'
+import authMiddleware from "./middlewares/auth.middleware.js";
+import { authorizeRoles } from "./middlewares/role.middleware.js";
 
 // agar tumhara concept clear hogya hai socket main
 //  to ye jo socket setup mvc ka use krke phir set up kr do
@@ -26,9 +29,10 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth",  authRoutes);
 app.use("/api/user", userRoutes);
 app.use('/api/message', messageRoutes)
+app.use("/api/friends", authMiddleware, friendRoutes)
 
 io.on("connection", (socket) => {
   console.log("user connected", socket.id);

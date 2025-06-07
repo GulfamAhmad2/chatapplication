@@ -1,14 +1,18 @@
-import {Outlet} from "react-router-dom"
+import { Outlet } from "react-router-dom";
 // import './App.css'
 import SideBar from "./components/SideBar";
-import ChatSideBar from "./components/ChatSideBar";
 
 function App() {
   return (
     <>
-    <Outlet/>
+      <main className="flex bg-[var(--bg-color)] min-h-screen ">
+        <div>
+          <SideBar />
+        </div>
+        <Outlet />
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

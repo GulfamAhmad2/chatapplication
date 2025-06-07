@@ -12,14 +12,21 @@ import ProtectRoute from "./components/ProtectRoute.jsx";
 import './styles/variables.css'
 import Profile from "./pages/Profile.jsx";
 import PrivateChat from "./pages/PrivateChat.jsx";
+import Friends from "./pages/friends/Friends.jsx";
+import Calls from "./pages/Calls.jsx";
+import Pending from "./pages/friends/Pending.jsx";
+import Sent from "./pages/friends/Sent.jsx";
+import Blocked from "./pages/friends/Blocked.jsx";
 
 
 const queryClient = new QueryClient()
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.documentElement.classList.add('dark');
-} else {
-  document.documentElement.classList.remove('dark');
-}
+// if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+//   document.documentElement.classList.add('dark');
+// } else {
+//   document.documentElement.classList.remove('dark');
+// }
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,18 +37,43 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
+        index: true,
         element: <Home />,
       },
       {
-        path: "/about",
+        path: "friends",
+        element: <Friends />,
+        children: [
+          {
+            index:true,
+            element: <Pending />,
+          },
+          {
+            path: "sent",
+            element: <Sent />,
+          },
+          {
+            path: "blocked",
+            element: <Blocked />,
+          },
+        ],
+      },
+      {
+        path: "calls",
+        element: <Calls />,
+      },
+      {
+        path: "about",
         element: <About />,
       },
       {
-        path: '/profile',
-        element: <Profile />
+        path: "profile",
+        element: <Profile />,
       },
-      {path: '/chat/:chatId', element: <PrivateChat />}
+      {
+        path: "chat/:chatId",
+        element: <PrivateChat />,
+      },
     ],
   },
   {
@@ -53,6 +85,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
 ]);
+
 
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient} >
